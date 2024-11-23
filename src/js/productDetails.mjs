@@ -39,13 +39,10 @@ export default class ProductDetail {
         }
     async addToCart(){
         let currentCart = await getLocalStorage("so-cart");
-        console.log(currentCart);
-        console.log(this.product);
         let products = [];
         if (currentCart != null) {
             products = currentCart;
         }
-        console.log(currentCart)
         products.push(this.product);
         setLocalStorage("so-cart", products);
     }

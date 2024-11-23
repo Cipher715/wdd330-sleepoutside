@@ -20,10 +20,9 @@ export default class ProductListing {
     }
 
     async init() {
-        const orgList = await this.dataSource.getData();
+        const origList = await this.dataSource.getData();
         const removeId = ["989CG", "880RT"];
-        const list = orgList.filter(item => !removeId.includes(item.Id));
-        console.log(list);
+        const list = origList.filter(item => !removeId.includes(item.Id));
         this.renderList(list);
     }
 
