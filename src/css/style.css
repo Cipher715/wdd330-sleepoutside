@@ -76,6 +76,29 @@ header {
 .logo--square > div {
   margin-top: -1.7em;
 }
+
+.product-grid {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.product-grid h2 {
+  color: black;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.product-grid a {
+  width: 150px;
+  text-decoration: none;
+}
+
+
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);

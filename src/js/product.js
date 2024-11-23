@@ -4,7 +4,7 @@ import ProductDetails from "./productDetails.mjs";
 
 loadHeaderFooter();
 
-const dataSource = new ProductData("tents");
+const dataSource = new ProductData(getParams("category"));
 const productId = getParams("product");
 
 const product = new ProductDetails(productId, dataSource);
