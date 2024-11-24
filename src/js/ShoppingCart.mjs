@@ -3,7 +3,7 @@ import { getLocalStorage } from "./utils.mjs";
 function cartItemTemplate(item){
     const newItem = `<li class="cart-card divider">
         <a href="#" class="cart-card__image">
-        <img src="${item.Image}" alt="${item.Name}"/></a>
+        <img src="${item.Images.PrimaryMedium}" alt="${item.Name}"/></a>
         <a href="#">
         <h2 class="card__name">${item.Name}</h2>
         </a>
@@ -22,12 +22,20 @@ export default class ShoppingCart{
     }
     renderCartContents() {
         const cartItems = getLocalStorage(this.key);
+        let total = 0;
+        const totalHtml = document.querySelector(".cart-total");
         if(cartItems != null){
             const htmlItems = cartItems.map((item) => cartItemTemplate(item));
             document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
+
+            cartItems.map((item) => total += parseFloat(item.FinalPrice));
+            totalHtml.innerHTML  =`Total: $${total}`;
+            totalHtml.hidden = false;
+
         }
         else {
             document.querySelector(this.parentSelector).innerHTML = "The cart is empty."
+            totalHtml.hidden = true;
         }
     }
 
