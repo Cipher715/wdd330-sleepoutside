@@ -8,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor() {
     // this.category = category;
     // this.path = `../json/${this.category}.json`;
@@ -23,5 +23,13 @@ export default class ProductData {
     const product = await convertToJson(response);
     console.log(product)
     return product.Result;
+  }
+  async checkout(order) {
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json",},
+      body: JSON.stringify(order),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }
