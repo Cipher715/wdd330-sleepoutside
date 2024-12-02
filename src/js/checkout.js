@@ -8,5 +8,9 @@ myCheckout.init();
 myCheckout.calculateOrdertotal();
 document.forms['checkout'].addEventListener('submit', (e) => {
     e.preventDefault();
-    myCheckout.checkout();
+    const myForm = document.forms['checkout'];
+    const chek_status = myForm.checkValidity();
+    if(chek_status){
+        myCheckout.checkout();
+    }
 });
