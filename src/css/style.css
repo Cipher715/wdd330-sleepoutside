@@ -199,29 +199,37 @@ button {
 }
 
 .cart-card__image {
-  grid-row: 1/3;
+  grid-row: 1/4;
   grid-column: 1;
 }
 .cart-card p {
   margin-top: 0;
 }
+
+.cancel{
+  display: block;
+  grid-row: 0/1;
+  grid-column: 3/4;
+  text-align: right;
+}
+
 .cart-card .card__name {
-  grid-row: 1;
+  grid-row: 2;
   grid-column: 2;
 }
 
 .cart-card__color {
-  grid-row: 2;
+  grid-row: 3;
   grid-column: 2;
 }
 
 .cart-card__quantity {
-  grid-row: 1;
+  grid-row: 2;
   grid-column: 3;
 }
 
 .cart-card__price {
-  grid-row: 2;
+  grid-row: 3;
   grid-column: 3;
 }
 

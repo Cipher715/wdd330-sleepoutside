@@ -1,7 +1,8 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function cartItemTemplate(item){
     const newItem = `<li class="cart-card divider">
+        <span class="cancel" data-id="${item.Id}">X</span>
         <a href="#" class="cart-card__image">
         <img src="${item.Images.PrimaryMedium}" alt="${item.Name}"/></a>
         <a href="#">
@@ -31,12 +32,29 @@ export default class ShoppingCart{
             cartItems.map((item) => total += parseFloat(item.FinalPrice));
             totalHtml.innerHTML  =`Total: $${total}`;
             totalHtml.hidden = false;
+            const buttons = document.querySelectorAll('.cancel');
 
+            buttons.forEach(button => {
+                const id = button.getAttribute("data-id");
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    this.cancelItem(id);
+                });
+            });
         }
         else {
             document.querySelector(this.parentSelector).innerHTML = "The cart is empty."
             totalHtml.hidden = true;
         }
+    }
+
+    cancelItem(id) {
+        const cartItems = getLocalStorage(this.key);
+        const index = cartItems.findIndex(item => item.Id === id);
+        console.log(index)
+        cartItems.splice(index, 1);
+        setLocalStorage("so-cart", cartItems);
+        this.renderCartContents()
     }
 
 }
