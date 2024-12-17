@@ -1,4 +1,4 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 async function convertToJson(res) {
   const data = await res.json();
@@ -10,27 +10,50 @@ async function convertToJson(res) {
 }
 
 export default class ExternalServices {
-  constructor() {
-    // this.category = category;
-    // this.path = `../json/${this.category}.json`;
-  }
-  async getData(category) {
-    const response = await fetch(baseURL+`products/search/${category}`);
+  constructor() {}
+  async getDetail(id) {
+    const response = await fetch(baseURL+`lookup.php?i=${id}`);
     const data = await convertToJson(response);
-    return data.Result;
+    return data.meals[0];
   }
-  async findProductById(id) {
-    const response = await fetch(`${baseURL}product/${id}`);
-    const product = await convertToJson(response);
-    console.log(product)
-    return product.Result;
+  async getRandomRecipe() {
+    const response = await fetch(baseURL+`random.php`);
+    const data = await convertToJson(response);
+    return data.meals[0];
   }
-  async checkout(order) {
-    const options = {
-      method: "POST",
-      headers: {"Content-Type": "application/json",},
-      body: JSON.stringify(order),
-    };
-    return await fetch(baseURL + "checkout/", options).then(convertToJson);
+  async getIngredientList() {
+    const response = await fetch(baseURL+`list.php?i=list`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async getCategoryList() {
+    const response = await fetch(baseURL+`list.php?c=list`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async getAreaList() {
+    const response = await fetch(baseURL+`list.php?a=list`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async filterListByIngredient(ingredient){
+    const response = await fetch(baseURL+`filter.php?i=${ingredient}`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async filterListByCategory(category){
+    const response = await fetch(baseURL+`filter.php?c=${category}`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async filterListByArea(area){
+    const response = await fetch(baseURL+`filter.php?a=${area}`);
+    const data = await convertToJson(response);
+    return data.meals;
+  }
+  async searchRecipe(name){
+    const response = await fetch(baseURL+`filter.php?s=${name}`);
+    const data = await convertToJson(response);
+    return data.meals;
   }
 }
